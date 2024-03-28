@@ -16,8 +16,8 @@ COPY *.go ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o /main
 
 # Install python3-pip
-RUN apt-get update \
-    && apt-get install -y python3 \
+RUN apt-get install -y python3 \
+    apt-get install -y python3-pip \
     && apt-get clean
 
 # Install Python dependencies from requirements.txt
