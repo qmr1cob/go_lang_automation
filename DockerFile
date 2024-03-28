@@ -1,32 +1,15 @@
-# syntax=docker/dockerfile:1
+# Use Python as the base image
+FROM python:latest
 
-FROM golang:1.19
-
-# Set destination for COPY
+# Set the working directory
 WORKDIR /app
 
-# Download Go modules
-COPY . .
-RUN go mod download
+# Install any Python dependencies you need
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Copy the source code
-COPY *.go ./
-
-# Build the Go application
-RUN CGO_ENABLED=0 GOOS=linux go build -o /main
-
-# Install python3 and pip3
-RUN apt-get update && apt-get install -y python3 && \
-    python3 -m ensurepip && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-get clean
-
-# Install Python dependencies from requirements.txt
-# COPY requirements.txt .
-# RUN pip3 install -r requirements.txt
-
-# Expose port 8080
+# Expose any necessary ports
 EXPOSE 8080
 
-# Run the application
-CMD ["/main"]
+# Define the command to run your Python application
+CMD ["python3", "app.py"]
