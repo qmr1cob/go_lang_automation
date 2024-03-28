@@ -9,16 +9,14 @@ WORKDIR /app
 COPY . .
 RUN go mod download
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/reference/dockerfile/#copy
+# Copy the source code
 COPY *.go ./
 
-# Build
+# Build the Go application
 RUN CGO_ENABLED=0 GOOS=linux go build -o /main
 
-# Install pip3 for Python 3
-RUN apt-get update && apt-get install -y python3 \
-    && curl -sSL https://bootstrap.pypa.io/get-pip.py | python3
+# Install python3-pip
+RUN apt-get update && apt-get install -y python3-pip
 
 # Install Python dependencies from requirements.txt
 COPY requirements.txt .
