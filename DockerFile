@@ -1,32 +1,36 @@
 # Start from the official golang image
-# for a specific version, use an image like:
-# FROM golang:1.16
 FROM golang:latest AS builder
 
-# Set the Current Working Directory inside the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy go mod and sum files
-COPY go.mod go.sum ./
+# Copy the Go source code and the Go module files into the container
+COPY main.go go.mod ./
 
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+# Download Go modules
 RUN go mod download
 
-# Copy the source from the current directory to the Working Directory inside the container
-COPY . .
+# Install Python 3 and pip3
+RUN apt-get update && apt-get install -y python3 python3-pip
 
-# Build the Go app
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+# Copy the Python script into the container
+COPY script.py .
 
-######## Start a new stage from scratch #######
-FROM alpine:latest  
+# Build the Go application
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
-WORKDIR /root/
+# Start a new stage with a minimal Python image
+FROM python:latest
 
-# Copy the Pre-built binary file from the previous stage
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the built Go executable and the Python script from the builder stage
 COPY --from=builder /app/main .
-# Expose port 8080 to the outside world
+COPY --from=builder /app/script.py .
+
+# Expose any necessary ports
 EXPOSE 8080
 
-# Command to run the executable
+# Command to run the Go application
 CMD ["./main"]
