@@ -4,9 +4,15 @@ FROM python:latest
 # Set the working directory
 WORKDIR /app
 
-# Install any Python dependencies you need
+# Copy requirements.txt to the container
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+
+# Create and activate a virtual environment
+RUN python3 -m venv venv
+ENV PATH="/app/venv/bin:$PATH"
+
+# Install Python dependencies in the virtual environment
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Expose any necessary ports
 EXPOSE 8080
