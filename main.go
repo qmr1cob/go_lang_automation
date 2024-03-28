@@ -27,12 +27,14 @@ func main() {
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		// Print any errors that occur while starting the server
 		fmt.Printf("Error starting server: %s\n", err)
+	} else {
+		fmt.Println("Server started successfully!")
 	}
 }
 
 func runPythonScript() (string, error) {
 	// Command to run the Python script
-	cmd := exec.Command("python3", "script.py")
+	cmd := exec.Command("python", "script.py")
 	//scriptCmd := exec.Command("python3", "xorder_logMessage.py", triggerName, body.OrderID)
 
 	// Run the command and capture its output
