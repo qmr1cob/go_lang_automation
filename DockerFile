@@ -1,0 +1,27 @@
+# Use the official Golang image as a base image
+FROM golang:latest AS builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Go source code into the container
+COPY main.go .
+
+# Build the Go application
+RUN go build -o main .
+
+# Use a lightweight Python image as the final base image
+FROM python:latest
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the built Go executable and the Python script into the container
+COPY --from=builder /app/main .
+COPY script.py .
+
+# Expose the port on which the Go server will listen
+EXPOSE 8080
+
+# Command to run the Go application
+CMD ["./main"]
