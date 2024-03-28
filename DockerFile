@@ -4,9 +4,10 @@ FROM golang:latest
 # Install Python 3 and required packages
 RUN apt-get update \
     && apt-get install -y python3 \
-    && apt-get install -y python3-setuptools \
-    && apt-get install -y python3-pip \
     && apt-get clean
+
+# Install setuptools using pip
+RUN pip3 install setuptools
 
 # Set the working directory inside the container
 WORKDIR /app
