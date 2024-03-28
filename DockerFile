@@ -1,0 +1,21 @@
+# Use a base image that includes both Go and Python
+FROM golang:latest
+
+# Install Python and other required packages
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    apt-get clean
+
+# Optionally, set up any additional dependencies or configurations needed for your project
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy your Go source code into the container
+COPY . .
+
+# Build your Go application
+RUN go build -o myapp .
+
+# Command to run your Go application
+CMD ["./myapp"]
