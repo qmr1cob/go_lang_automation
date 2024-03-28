@@ -32,7 +32,8 @@ func main() {
 
 func runPythonScript() (string, error) {
 	// Command to run the Python script
-	cmd := exec.Command("python", "script.py")
+	cmd := exec.Command("python3", "script.py")
+	//scriptCmd := exec.Command("python3", "xorder_logMessage.py", triggerName, body.OrderID)
 
 	// Run the command and capture its output
 	output, err := cmd.CombinedOutput()
