@@ -16,11 +16,13 @@ COPY *.go ./
 RUN CGO_ENABLED=0 GOOS=linux go build -o /main
 
 # Install python3-pip
-RUN apt-get update && apt-get install -y python3-pip
+RUN apt-get update \
+    && apt-get install -y python3 \
+    && apt-get clean
 
 # Install Python dependencies from requirements.txt
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt
+#COPY requirements.txt .
+#RUN pip3 install -r requirements.txt
 
 # Expose port 8080
 EXPOSE 8080
