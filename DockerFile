@@ -28,7 +28,7 @@ FROM golang:latest AS go_base
 WORKDIR /go/src/app
 
 # Copy Go source code to the container
-COPY main.go .
+COPY . .
 
 # Build the Go application
 RUN go build -o /go/bin/app
