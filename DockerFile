@@ -1,13 +1,10 @@
 # Use the official Go Docker image as the base image
 FROM golang:latest
 
-# Install Python 3 and required packages
+# Install Python 3
 RUN apt-get update \
     && apt-get install -y python3 \
     && apt-get clean
-
-# Install setuptools using pip
-RUN pip3 install setuptools
 
 # Set the working directory inside the container
 WORKDIR /app
