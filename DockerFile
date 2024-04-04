@@ -1,40 +1,9 @@
-# Use Python as the base image
-FROM python:latest AS python_base
-
-# Set the working directory for Python
+FROM python:3-bookworm
 WORKDIR /app
 
-# Copy Python source code and requirements.txt to the container
-COPY requirements.txt .
-COPY app.py .
+COPY . /app
+COPY requirements.txt /app
 
-# Create and activate a Python virtual environment
-RUN python3 -m venv venv
-ENV PATH="/app/venv/bin:$PATH"
-
-# Install Python dependencies in the virtual environment
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Expose any necessary ports for the Python application
-EXPOSE 8000
-
-# Define the command to run the Python application
-CMD ["python3", "app.py"]
-
-# Use Golang as the base image
-FROM golang:latest AS go_base
-
-# Set the working directory for Go
-WORKDIR /go/src/app
-
-# Copy Go source code to the container
-COPY . .
-
-# Build the Go application
-RUN go build -o /go/bin/app
-
-# Expose any necessary ports for the Go application
+RUN pip3 install -r requirements.txt
 EXPOSE 8080
-
-# Specify the entrypoint to run the Go application
-ENTRYPOINT ["/go/bin/app"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
