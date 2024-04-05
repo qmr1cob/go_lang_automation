@@ -92,6 +92,7 @@ async def pipeline_run_status(pipeline_run_id):
 async def trigger_properties_ftn(trigger_name):
     try:
         adf_client = await authenticate_adf_client()
+        print("trigger_check")
         triggers = adf_client.triggers.list_by_factory(resource_group_name, data_factory_name)
         trigger_exists = any(trigger.name == trigger_name for trigger in triggers)
         if trigger_exists:
@@ -206,7 +207,7 @@ async def get_latest_trigger_run_status(trigger_name):
 
 async def time_check_adf(trigger_name):
     try:
-        trigger=await  trigger_properties_ftn(trigger_name)
+        trigger=await trigger_properties_ftn(trigger_name)
         print(trigger.properties)
         print(trigger.properties.frequency) #Hour
         print(trigger.properties.interval) #12 hr or 24hr
@@ -271,9 +272,6 @@ async def xorder_init(xorderId,triggerName):
         if mongo_client is None or database_client is None:
             print("Error: Could not connect to MongoDB.")
             return
-
-       
-
         
         trigger_name =triggerName
         print("Trigger name:", trigger_name)
@@ -281,6 +279,7 @@ async def xorder_init(xorderId,triggerName):
         
         xorderid =xorderId
         print("Order Id is:", xorderid)
+
         try:
             trigger_property_time =await time_check_adf(trigger_name)
             print("trigger_property_time",trigger_property_time)
@@ -328,7 +327,7 @@ async def xorder_init(xorderId,triggerName):
         except Exception as e:
             print(f"Error getting difference in timestamps of ADF: {str(e)}")
             return None              
-       
+
         
     except Exception as e:
         print(f"Error in main function: {str(e)}")
