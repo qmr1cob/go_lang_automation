@@ -3,7 +3,13 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import uvicorn
 import asyncio
-from xorder_operations import xorder_init 
+from xorder_operations import xorder_init
+
+#Set proxy environment variables
+os.environ["http_proxy"] = "http://localhost:3128"
+os.environ["https_proxy"] = "http://localhost:3128"
+os.environ["HTTP_PROXY"] = os.environ["http_proxy"]
+os.environ["HTTPS_PROXY"] = os.environ["https_proxy"]
 
 
 app = FastAPI()
