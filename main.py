@@ -6,8 +6,8 @@ import asyncio
 from xorder_operations import xorder_init
 
 #Set proxy environment variables
-os.environ["http_proxy"] = "http://localhost:3128"
-os.environ["https_proxy"] = "http://localhost:3128"
+os.environ["http_proxy"] = "http://172.19.160.1:8080"
+os.environ["https_proxy"] = "http://172.19.160.1:8080"
 os.environ["HTTP_PROXY"] = os.environ["http_proxy"]
 os.environ["HTTPS_PROXY"] = os.environ["https_proxy"]
 
