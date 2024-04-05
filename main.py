@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import uvicorn
 import asyncio
+from xorder_operations import xorder_init 
 
 
 app = FastAPI()
@@ -17,7 +18,7 @@ async def xorder_request(request: Request):
     # Read the request body as JSON
     body = await request.json()
     print("Request Body:", body)
-    #await xorder_init(body['order_id'], body['order_value'])
+    await xorder_init(body['order_id'], body['order_value'])
     # Prepare the response
     response_data = {"msg": "The order has been placed"}
     return JSONResponse(content=response_data)
