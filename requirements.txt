@@ -1,2 +1,7 @@
+azure-identity
+azure-mgmt-resource
+azure-mgmt-datafactory
+python-dotenv
+pymongo
 fastapi
 uvicorn
