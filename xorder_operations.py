@@ -96,6 +96,7 @@ async def trigger_properties_ftn(trigger_name):
         triggers = adf_client.triggers.list_by_factory(resource_group_name, data_factory_name)
         print(triggers)
         trigger_exists = any(trigger.name == trigger_name for trigger in triggers)
+        print("Found triggers :", trigger_exists)
         if trigger_exists:
             print("Found triggers :", trigger_exists)
             trigger_properties = adf_client.triggers.get(resource_group_name, data_factory_name, trigger_name)
