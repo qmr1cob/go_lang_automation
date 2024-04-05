@@ -1,15 +1,27 @@
-from fastapi import FastAPI
+import os
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 import uvicorn
+import asyncio
+
 
 app = FastAPI()
 
 @app.get('/')
 def index():
-    return {'data': 'Hello FastAPI!'}
+    return {'data': 'Backend is running'}
 
-@app.get('/message')
-def index():
-    return {'data': 'FastAPI is great!'}
+
+@app.post("/post/order_info")
+async def xorder_request(request: Request):
+    # Read the request body as JSON
+    body = await request.json()
+    print("Request Body:", body)
+    #await xorder_init(body['order_id'], body['order_value'])
+    # Prepare the response
+    response_data = {"msg": "The order has been placed"}
+    return JSONResponse(content=response_data)
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host='0.0.0.0', port=8080)
