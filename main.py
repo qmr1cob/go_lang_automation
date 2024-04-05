@@ -6,10 +6,10 @@ import asyncio
 from xorder_operations import xorder_init
 
 #Set proxy environment variables
-os.environ["http_proxy"] = "http://10.143.0.177:8080"
-os.environ["https_proxy"] = "http://10.143.0.177:8080"
-os.environ["HTTP_PROXY"] = "http://10.143.0.177:8080"
-os.environ["HTTPS_PROXY"] ="http://10.143.0.177:8080"
+os.environ["http_proxy"] = "http://10.143.16.65:8080"
+os.environ["https_proxy"] = "http://10.143.16.65:8080"
+os.environ["HTTP_PROXY"] = "http://10.143.16.65:8080"
+os.environ["HTTPS_PROXY"] ="http://10.143.16.65:8080"
 
 
 app = FastAPI()
