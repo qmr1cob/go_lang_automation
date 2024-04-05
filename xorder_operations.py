@@ -262,6 +262,7 @@ async def xorder_init(xorderId,triggerName):
 # async def main():
     try:
         adf_client = await authenticate_adf_client()
+        print(adf_client)
         if adf_client is None:
             print("Error: Could not authenticate with Azure Data Factory.")
             return
