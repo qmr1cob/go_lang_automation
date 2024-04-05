@@ -1,9 +1,14 @@
 from pymongo import MongoClient
 from schema import create_payload_tumbling_window_trigger, create_payload_schedule_trigger
-
+import os
+#Set proxy environment variables
+os.environ["http_proxy"] = "http://10.143.16.65:8080"
+os.environ["https_proxy"] = "http://10.143.16.65:8080"
+os.environ["HTTP_PROXY"] = "http://10.143.16.65:8080"
+os.environ["HTTPS_PROXY"] ="http://10.143.16.65:8080"
 async def create_mongo_client(connection_string, database_name):
     try:
-        mongo_client = MongoClient(connection_string)
+        mongo_client = MongoClient(connection_string,)
         database_client = mongo_client[database_name]
         return mongo_client, database_client
     except Exception as e:
